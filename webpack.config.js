@@ -18,9 +18,15 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'React ES2015'
+            title: 'React ES2015',
+            template: 'app/index.ejs',
         })
     ],
+
+    node: {
+        dns: 'empty',
+        net: 'empty'
+    },
 
     module: {
         loaders: [
@@ -29,13 +35,17 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: "babel",
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react', 'stage-0']
                 }
             },
 
             {
                 test: /\.css$/,
                 loaders: ['style', 'css']
+            },
+            { 
+                test: /\.json$/,
+                loader: "json-loader"
             }
         ]
     }
