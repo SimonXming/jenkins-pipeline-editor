@@ -108,7 +108,6 @@ function convertEnvironmentToInternal(environment: any[]): any[] {
 }
 
 export function convertJsonToInternalModel(json: PipelineJsonContainer): PipelineInfo {
-    console.log("?????convertJsonToInternalModel")
     const pipeline = json.pipeline;
     const out: PipelineInfo = {
         id: idgen.next(),

@@ -92,6 +92,8 @@ export class PipelineEditor extends Component<DefaultProps, Props, State> {
                         {this.state.pipelineErrors.expand && this.state.pipelineErrors.map(err => <li>{err.location && err.location.join('/')}: {err.error}</li>)}
                     </ul>
                 }
+                {/*<Extensions.Renderer extensionPoint="pipeline.editor.css"/>*/}
+                <EditorMain />
             </div>
         );
     }

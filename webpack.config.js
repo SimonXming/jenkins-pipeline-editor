@@ -35,10 +35,10 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: "babel",
                 query: {
-                    presets: ['es2015', 'react', 'stage-0']
+                    presets: ['react', 'es2015', 'stage-0'],
+                    plugins: ["transform-decorators-legacy"]
                 }
             },
-
             {
                 test: /\.css$/,
                 loaders: ['style', 'css']

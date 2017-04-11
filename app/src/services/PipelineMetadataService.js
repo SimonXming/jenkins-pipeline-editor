@@ -1,7 +1,5 @@
 import { Fetch, UrlConfig } from '@jenkins-cd/blueocean-core-js';
 
-const BlueOceanAppURL = "http://ci.comprehend.in:443/blue"
-
 class PipelineMetadataService {
     cache: object = {};
 
@@ -13,8 +11,7 @@ class PipelineMetadataService {
             handler(this.cache[method]);
             return;
         }
-
-        Fetch.fetchJSON(`http://ci.comprehend.in:443${UrlConfig.getBlueOceanAppURL()}/rest/pipeline-metadata/${method}?depth=20`).then(data => {
+        Fetch.fetchJSON(`${UrlConfig.getBlueOceanAppURL()}/rest/pipeline-metadata/${method}?depth=20`).then(data => {
             if (mapper) {
                 data = mapper(data);
             }
