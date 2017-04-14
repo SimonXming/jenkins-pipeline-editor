@@ -28,7 +28,8 @@
     "react-addons-test-utils": "15.3.2",
     "webpack": "~1.13.1",
     "webpack-dev-server": "~1.14.1",
-    "webpack-merge": "~0.14.0"
+    "webpack-merge": "~0.14.0",
+    "es6-promise": "4.0.5"
   },
   "private": false,
   "scripts": {

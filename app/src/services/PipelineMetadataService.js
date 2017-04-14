@@ -1,4 +1,6 @@
-import { Fetch, UrlConfig } from '@jenkins-cd/blueocean-core-js';
+import { Fetch, JenkinBlueUrl } from "./Core"
+
+console.log(Fetch)
 
 class PipelineMetadataService {
     cache: object = {};
@@ -11,7 +13,7 @@ class PipelineMetadataService {
             handler(this.cache[method]);
             return;
         }
-        Fetch.fetchJSON(`${UrlConfig.getBlueOceanAppURL()}/rest/pipeline-metadata/${method}?depth=20`).then(data => {
+        Fetch.fetchJSON(`${JenkinBlueUrl}/rest/pipeline-metadata/${method}?depth=20`).then(data => {
             if (mapper) {
                 data = mapper(data);
             }

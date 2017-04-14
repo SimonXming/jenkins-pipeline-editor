@@ -1,4 +1,4 @@
-import { Fetch, UrlConfig } from '@jenkins-cd/blueocean-core-js';
+import { Fetch, JenkinUrl } from "./Core"
 
 const cache = {};
 
@@ -11,7 +11,7 @@ export default function fetch(path, body, handler, disableLoadingIndicator) {
             crumb = crumb.split('=');
             headers[crumb[0]] = crumb[1];
         }
-        Fetch.fetchJSON(UrlConfig.getJenkinsRootURL() + path, {
+        Fetch.fetchJSON(JenkinUrl + path, {
             fetchOptions: {
                 method: 'POST',
                 body: body,
@@ -27,7 +27,7 @@ export default function fetch(path, body, handler, disableLoadingIndicator) {
     if (cache.crumb) {
         useCrumb(cache.crumb);
     } else {
-        Fetch.fetch(`${UrlConfig.getJenkinsRootURL()}/blue/rest/pipeline-metadata/crumbInfo`, {
+        Fetch.fetch(`${JenkinUrl}/blue/rest/pipeline-metadata/crumbInfo`, {
             fetchOptions: { method: 'GET', disableLoadingIndicator: disableLoadingIndicator }
         }).then(response => {
             if (!response.ok) {
