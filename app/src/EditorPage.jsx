@@ -355,11 +355,13 @@ class PipelineLoader extends React.Component {
     
     save(saveToBranch, commitMessage, errorHandler) {
         const { organization, pipeline, branch } = this.props.params;
+        // ! Here convert InternalModelToJson
         const pipelineJson = convertInternalModelToJson(pipelineStore.pipeline);
         const split = pipeline.split('/');
         const team = split[0];
         const repo = split[1];
         const saveMessage = commitMessage || (this.state.sha ? 'Updated Jenkinsfile' : 'Added Jenkinsfile');
+        // ! Here convert JsonToPipeline script
         convertJsonToPipeline(JSON.stringify(pipelineJson), (pipelineScript, err) => {
             if (!err) {
                 const body = {

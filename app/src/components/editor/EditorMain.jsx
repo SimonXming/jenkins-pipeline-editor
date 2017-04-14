@@ -10,6 +10,7 @@ import { EmptyStateView } from '@jenkins-cd/design-language';
 import { AddStepSelectionSheet } from './AddStepSelectionSheet';
 import pipelineStore from '../../services/PipelineStore';
 import type { StageInfo, StepInfo } from '../../services/PipelineStore';
+import { convertInternalModelToJson, convertJsonToPipeline, convertPipelineToJson, convertJsonToInternalModel } from '../../services/PipelineSyntaxConverter';
 import pipelineMetadataService from '../../services/PipelineMetadataService';
 import { Sheets } from '../Sheets';
 import { MoreMenu } from '../MoreMenu';
@@ -81,6 +82,14 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
     }
 
     doUpdate() {
+        // Do update everytime user edit PipelineEditor
+        const pipelineJson = convertInternalModelToJson(pipelineStore.pipeline);
+        console.log(pipelineJson)
+        convertJsonToPipeline(JSON.stringify(pipelineJson), (pipelineScript, err) => {
+            console.log(pipelineScript)
+        })
+        //
+
         for (const step of this.state.selectedSteps) {
             if (!pipelineStore.findStageByStep(step)) {
                 this.setState({selectedSteps: []});

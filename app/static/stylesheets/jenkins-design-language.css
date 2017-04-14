@@ -514,7 +514,7 @@ template {
 }
 
 
-@font-face {
+/*@font-face {
   font-family:"Octicons";
   src:url("octicons.eot?ef21c39f0ca9b1b5116e5eb7ac5eabe6");
   src:url("octicons.eot?#iefix") format("embedded-opentype"),
@@ -524,7 +524,7 @@ template {
 		url("octicons.svg?ef21c39f0ca9b1b5116e5eb7ac5eabe6#octicons") format("svg");
   font-weight:normal;
   font-style:normal;
-}
+}*/
 
 
 /*
@@ -534,7 +534,7 @@ template {
 
 */
 .octicon, .mega-octicon {
-  font: normal normal normal 16px/1 Octicons;
+  font: normal normal normal 16px/1;
   display: inline-block;
   text-decoration: none;
   text-rendering: auto;

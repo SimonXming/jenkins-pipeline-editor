@@ -1,0 +1,686 @@
+.pipeline-editor {
+  display: flex;
+  flex-direction: column;
+  min-width: 640px;
+  position: fixed;
+  top: 120px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-radius: 2px;
+  z-index: 100;
+}
+.pipeline-editor .editor-delete-btn {
+  color: #d24146;
+  border-color: #d24146;
+}
+.pipeline-editor .editor-delete-btn:hover {
+  color: #d24146;
+  border-color: #d24146;
+}
+.pipeline-editor .editor-delete-btn[disabled],
+.pipeline-editor .editor-delete-btn[disabled]:hover {
+  opacity: 0.2;
+}
+.pipeline-editor .editor-button-bar {
+  padding: 4px 0;
+  width: 100%;
+  margin: 16px 0;
+}
+.pipeline-editor .editor-button-bar > button {
+  width: 100%;
+}
+.pipeline-editor .editor-step .editor-button-bar {
+  padding: 4px 2px 4px 28px;
+  width: 100%;
+  background: #cdcdcd;
+  position: relative;
+}
+.pipeline-editor .editor-step .editor-button-bar.arrow-up:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  border: 8px solid #cdcdcd;
+  border-left-color: transparent;
+  width: 0;
+  height: 0;
+  border-right-color: transparent;
+  border-top: 0;
+  left: 8px;
+  bottom: 0px;
+}
+.pipeline-editor .editor-main {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  position: relative;
+  padding-right: 360px;
+}
+.pipeline-editor .editor-main-graph {
+  display: flex;
+  flex-grow: 10;
+  flex-shrink: 0;
+  flex-basis: 50%;
+  background: #ffffff;
+  border-bottom: solid 1px #cdcdcd;
+  align-items: flex-start;
+  overflow: auto;
+}
+.pipeline-editor .editor-main-selection-title {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 4;
+  flex-basis: 8.5rem;
+  align-items: center;
+}
+.pipeline-editor .editor-main-selection-title h4 {
+  margin: 0 2rem;
+  font-size: 20px;
+  top: -3px;
+  flex-grow: 1;
+}
+.pipeline-editor .editor-main-selection-title .editor-button-bar {
+  flex-grow: 0;
+  width: auto;
+  margin: 0 2rem;
+  padding: 0;
+}
+.pipeline-editor .editor-main-stage-details {
+  display: flex;
+  flex-grow: 10;
+  flex-shrink: 4;
+  flex-basis: 50%;
+  overflow-x: auto;
+}
+.pipeline-editor .editor-main-stage-details.editor-details-placeholder {
+  align-items: center;
+  justify-content: center;
+}
+.pipeline-editor .editor-main-stage-details .empty-state-container {
+  width: 70rem;
+  text-align: center;
+}
+.pipeline-editor .editor-main-stage-details .empty-state-container p {
+  font-size: 14pt;
+}
+.pipeline-editor .editor-main-stage-details .empty-state-container .empty-state-content {
+  max-width: none;
+}
+.pipeline-editor .editor-main-step-list {
+  width: 50%;
+  border-right: solid 1px #cdcdcd;
+  padding-left: 2rem;
+}
+.pipeline-editor .editor-main-step-details {
+  width: 50%;
+}
+.pipeline-editor .editor-main-step-list p,
+.pipeline-editor .editor-main-step-details p {
+  text-align: center;
+}
+.pipeline-editor .editor-page-header-controls button + button {
+  margin-left: 10px;
+}
+.pipeline-editor .editor-graph-node {
+  fill: #949393;
+}
+.pipeline-editor .editor-graph-node-inner {
+  fill: #fff;
+  transition: all 0.1s ease-in;
+}
+.pipeline-editor .editor-graph-nodegroup.selected .editor-graph-node {
+  fill: #4a90e2;
+}
+.pipeline-editor .editor-graph-nodegroup.selected .editor-graph-node-inner {
+  fill: #4a90e2;
+  transform: scale(0);
+}
+.pipeline-editor .editor-graph-nodegroup.errors text {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: monospace;
+  fill: #d24146;
+}
+.pipeline-editor .editor-graph-nodegroup.errors .pipeline-selection-highlight {
+  fill: #d24146;
+  stroke: #d24146;
+}
+.pipeline-editor .pipeline-connector.placeholder {
+  stroke: #eae9e9;
+}
+.pipeline-editor .pipeline-big-label.errors,
+.pipeline-editor .pipeline-small-label.errors {
+  color: #d24146;
+}
+.pipeline-editor .result-status-glyph polygon {
+  fill: #cbcbcb;
+}
+.pipeline-editor .editor-add-node-placeholder {
+  fill: #fff;
+  stroke: #cbcbcb;
+}
+.pipeline-editor .start-node {
+  fill: #cdcdcd;
+}
+.pipeline-editor .editor-steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pipeline-editor .editor-steps button.add svg {
+  fill: #fff;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-top: -2px;
+}
+.pipeline-editor .editor-step {
+  width: 100%;
+  display: flex;
+  background: #ffffff;
+  position: relative;
+}
+.pipeline-editor .editor-step.errors > div > .editor-step-content:after {
+  border: 1px solid #d24146;
+  position: absolute;
+  content: '';
+  top: -1px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+.pipeline-editor .editor-step.errors:first-child .editor-step-content:after {
+  top: 0;
+}
+.pipeline-editor .editor-step-errors {
+  color: #d24146;
+}
+.pipeline-editor .editor-step-grab {
+  background: #949393;
+  display: flex;
+  align-items: center;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.pipeline-editor .editor-step-main {
+  width: 100%;
+  border: 1px solid #cdcdcd;
+  border-width: 0 1px;
+}
+.pipeline-editor .editor-step.selected > .editor-step-main {
+  background: #dddddd;
+}
+.pipeline-editor .editor-step-content {
+  padding: 11px 16px;
+  cursor: pointer;
+  position: relative;
+  border-bottom: 1px solid #cdcdcd;
+}
+.pipeline-editor .editor-step-content:hover,
+.pipeline-editor .editor-step-content:active,
+.pipeline-editor .editor-step-content:focus {
+  background: #edf4fc;
+}
+.pipeline-editor .editor-step .editor-step .editor-step-main {
+  border-right: 0;
+  position: relative;
+}
+.pipeline-editor .editor-step.nested .editor-step-main {
+  border-left-width: 24px;
+  position: relative;
+}
+.pipeline-editor .editor-steps > .editor-step.missing .editor-step-content {
+  cursor: default;
+}
+.pipeline-editor .editor-steps > .editor-step.missing .editor-step-content:hover,
+.pipeline-editor .editor-steps > .editor-step.missing .editor-step-content:active,
+.pipeline-editor .editor-steps > .editor-step.missing .editor-step-content:focus {
+  background: #fff;
+}
+.pipeline-editor .editor-step-detail section + section {
+  margin-top: 16px;
+}
+.pipeline-editor .editor-step-label {
+  display: block;
+  font-weight: bold;
+  font-size: 110%;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+.pipeline-editor .editor-step-summary {
+  display: block;
+  color: #cdcdcd;
+  font-size: 14px;
+  max-height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+.pipeline-editor .editor-nested-steps {
+  width: 100%;
+}
+.pipeline-editor .editor-steps > .editor-step:first-child > .editor-step-main {
+  border-top: solid 1px #cdcdcd;
+}
+.pipeline-editor .editor-step-grab {
+  display: none;
+}
+.pipeline-editor .editor-step-detail {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 296px;
+}
+.pipeline-editor textarea.editor-step-detail-script {
+  min-width: 500px;
+  min-height: 400px;
+}
+.pipeline-editor .editor-step-detail-script {
+  margin-top: 1em;
+  flex-grow: 1;
+  border: solid 1px #4a90e2;
+  padding: 0.5em;
+  min-height: 4em;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+  white-space: nowrap;
+}
+.pipeline-editor .editor-step-detail-label {
+  font-size: 16px;
+  font-family: "LatoLatinWebMedium", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.pipeline-editor .editor-config-panel.global {
+  width: 296px;
+}
+.pipeline-editor .editor-config-panel.global > div {
+  margin-top: 20px;
+}
+.pipeline-editor .editor-config-panel.stage {
+  width: 296px;
+}
+.pipeline-editor .editor-config-panel.step {
+  width: 296px;
+}
+.pipeline-editor .editor-step-child-icon {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  margin-top: -7px;
+}
+.pipeline-editor .editor-step-child-icon svg {
+  fill: #fff;
+}
+.pipeline-editor .editor-steps > .editor-step:first-child > .editor-step-main > div > .editor-step-child-icon {
+  margin-top: -8px;
+}
+.pipeline-editor .sheet-container .sheet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #f8f8f8;
+  padding: 32px;
+  overflow: auto;
+}
+.pipeline-editor .sheet-container .sheet + .sheet {
+  box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.2);
+}
+.pipeline-editor .sheet-container .sheet .sheet-header {
+  position: relative;
+  margin-bottom: 22px;
+}
+.pipeline-editor .sheet-container .sheet .sheet-header h4,
+.pipeline-editor .sheet-container .sheet .sheet-header input {
+  border-bottom: 1px solid #cdd7e3;
+  padding: 8px 30px 8px 1px;
+}
+.pipeline-editor .sheet-container .sheet .sheet-header .back-from-sheet + h4,
+.pipeline-editor .sheet-container .sheet .sheet-header .back-from-sheet + div > input {
+  padding: 8px 30px 8px 31px;
+}
+.pipeline-editor .sheet-container .sheet .sheet-header input {
+  font-size: 18px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #cdd7e3;
+  color: #4a4a4a;
+  width: 100%;
+}
+.pipeline-editor .sheet-container .sheet .sheet-header input:focus {
+  outline: none;
+  border-bottom-color: #4a90e2;
+}
+.pipeline-editor .sheet-container .sheet .sheet-header input[type=text],
+.pipeline-editor .sheet-container .sheet .sheet-header .Dropdown-button {
+  border-color: #cdcdcd;
+}
+.pipeline-editor .sheet-container .sheet .back-from-sheet {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -13px;
+  cursor: pointer;
+}
+.pipeline-editor .sheet-container .sheet .back-from-sheet svg {
+  fill: #c3cfd7;
+}
+.pipeline-editor .sheet-container .sheet .back-from-sheet:hover svg {
+  fill: #4a4a4a;
+}
+.pipeline-editor .sheet-container .sheet-enter {
+  right: -60px;
+  opacity: 0;
+  z-index: 2;
+}
+.pipeline-editor .sheet-container .sheet-enter-active {
+  transition: all 500ms;
+  transition-timing-function: cubic-bezier(0.025, 1.125, 0.1, 0.97);
+  right: 0;
+  opacity: 1;
+}
+.pipeline-editor .sheet-container .sheet-enter + .sheet-leave-active {
+  margin-left: 0;
+  left: auto;
+  opacity: 1;
+  box-shadow: 0 0px 0 rgba(0, 0, 0, 0);
+}
+.pipeline-editor .sheet-container .sheet-leave {
+  right: 0;
+  opacity: 1;
+  z-index: 1;
+}
+.pipeline-editor .sheet-container .sheet-leave-active {
+  transition: all 200ms;
+  transition-timing-function: cubic-bezier(0.805, 0.05, 0.955, 0.29);
+  right: -32px;
+  opacity: 0;
+}
+.pipeline-editor .more-menu {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -11px;
+  cursor: pointer;
+}
+.pipeline-editor .more-menu svg {
+  fill: #4a90e2;
+}
+.pipeline-editor .more-menu .menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 7px;
+  background: #fff;
+  display: inline-block;
+  padding: 4px 0;
+  border-radius: 3px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  z-index: 2;
+}
+.pipeline-editor .more-menu .menu-dropdown > a {
+  display: block;
+  padding: 5px 18px;
+  color: #444;
+}
+.pipeline-editor .more-menu .menu-dropdown > a:hover,
+.pipeline-editor .more-menu .menu-dropdown > a:focus,
+.pipeline-editor .more-menu .menu-dropdown > a:active {
+  background: #edf4fc;
+  text-decoration: none;
+}
+.pipeline-editor .editor-step-selector {
+  width: 296px;
+}
+.pipeline-editor .editor-step-selector > div {
+  border: 1px solid #cdcdcd;
+  border-top: 0;
+  background: #fff;
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.pipeline-editor .editor-step-selector > div:first-child {
+  border-top: 1px solid #cdcdcd;
+}
+.pipeline-editor .editor-step-selector > div:hover,
+.pipeline-editor .editor-step-selector > div:active,
+.pipeline-editor .editor-step-selector > div:focus {
+  background: #edf4fc;
+}
+.pipeline-editor .editor-step-search {
+  position: relative;
+  margin: -32px 0 4px 0;
+}
+.pipeline-editor .editor-step-search > svg {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  margin-top: -5px;
+}
+.pipeline-editor .editor-step-search > input {
+  width: 100%;
+  padding: 22px 13px 8px 31px;
+  position: relative;
+  display: block;
+  background: transparent;
+  border: 0;
+  font-size: 1.2em;
+}
+.pipeline-editor .editor-step-search > input::-webkit-input-placeholder {
+  color: #888;
+  font-style: italic;
+}
+.pipeline-editor .editor-step-search > input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #888;
+  font-style: italic;
+}
+.pipeline-editor .editor-step-search > input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #888;
+  font-style: italic;
+}
+.pipeline-editor .editor-step-search > input:-ms-input-placeholder {
+  color: #888;
+  font-style: italic;
+}
+.pipeline-editor .editor-step-search > input:focus {
+  border-color: #4a90e2;
+  border-radius: 0px;
+  outline: none;
+  margin: 0;
+}
+.pipeline-editor .pipeline-editor-form .form-item .form-label {
+  display: block;
+  font-size: 1.1em;
+  margin: 1em 0 .3em 0;
+}
+.pipeline-editor .pipeline-editor-form .form-item .form-input {
+  display: block;
+}
+.pipeline-editor .editor-pipeline-dialog {
+  width: 690px;
+}
+.pipeline-editor .load-save-usage-blurb {
+  padding: 16px;
+  margin: 0 0 30px 0;
+  background: #edf4fc;
+}
+.pipeline-editor .load-save-usage-blurb > div {
+  margin-top: 12px;
+  text-align: right;
+}
+.pipeline-editor .pipeline-editor-form > div {
+  margin-top: .75em;
+}
+.pipeline-editor .split {
+  display: table-row;
+}
+.pipeline-editor .split .split-child {
+  display: table-cell;
+  width: 50%;
+}
+.pipeline-editor ul.pipeline-validation-errors {
+  margin: -1em 0 1.2em 0;
+  color: #d24146;
+  background: #fff4f4;
+  padding: 16px;
+  border-radius: 3px;
+  border: 1px solid #eaa8aa;
+  margin-top: 10px;
+  list-style: none;
+}
+.pipeline-editor ul.pipeline-validation-errors > li + li {
+  margin-top: 4px;
+}
+.pipeline-editor .editor-config-panel h5 {
+  margin: .2em 0 .8em 0;
+  border-bottom: 1px solid rgba(204, 215, 227, 0.5);
+  padding: .3em 0;
+}
+.pipeline-editor .environment-entry .split-child + .split-child {
+  padding-left: 10px;
+}
+.pipeline-editor .agent-parameters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 0 -5px;
+}
+.pipeline-editor .agent-parameters .agent-param {
+  flex: 0 0 50%;
+  padding: 0 5px;
+}
+.pipeline-editor .agent-parameters .agent-param label > div:first-child {
+  margin: 6px 0 0 1px;
+}
+.pipeline-editor .environment-add-delete-icon {
+  cursor: pointer;
+  vertical-align: middle;
+  background: transparent;
+  display: inline-block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.pipeline-editor .environment-add-delete-icon:hover,
+.pipeline-editor .environment-add-delete-icon:focus {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.pipeline-editor .environment-add-delete-icon.add circle {
+  fill: #a5c8f1;
+}
+.pipeline-editor .environment-add-delete-icon.add .result-status-glyph polygon {
+  fill: #fff;
+}
+.pipeline-editor .environment-add-delete-icon.delete circle {
+  fill: #e8818d;
+}
+.pipeline-editor .environment-add-delete-icon:hover.add circle,
+.pipeline-editor .environment-add-delete-icon:focus.add circle {
+  fill: #4d92e3;
+}
+.pipeline-editor .environment-add-delete-icon:hover.delete circle,
+.pipeline-editor .environment-add-delete-icon:focus.delete circle {
+  fill: #d82b3f;
+}
+.pipeline-editor .environment-entry {
+  margin-top: 8px;
+}
+.pipeline-editor .FormElement.u-error-state > .FormElement-children > .TextInput {
+  position: relative;
+}
+.pipeline-editor .FormElement.u-error-state > .FormElement-children > .TextInput:after,
+.pipeline-editor .FormElement.u-error-state > .FormElement-children > .PasswordInput:after {
+  content: '!';
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  margin-top: -9px;
+  font-size: 16px;
+  color: #fff;
+  background: #d24146;
+  border-radius: 100%;
+  width: 18px;
+  display: inline-block;
+  height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 17px;
+  font-weight: bold;
+}
+td .pipeline-editor-link .svg-icon:hover path {
+  fill: #1c436a;
+}
+.Header-topNav .pipeline-editor-link .svg-icon:hover path {
+  fill: #ccc;
+}
+.pipeline-page .editor-pipeline-dialog {
+  min-width: 80%;
+  max-width: 50em;
+}
+.pipeline-page .editor-text-area {
+  min-width: 20em;
+}
+.pipeline-page .editor-text-area textarea {
+  font: 13px monospace;
+}
+.pipeline-page .ContentPageHeader .btn-primary {
+  color: #4A90E2;
+  background: #fff;
+}
+.pipeline-page .ContentPageHeader .btn-primary:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+.pipeline-page .ContentPageHeader .btn-link,
+.pipeline-page .ContentPageHeader .btn-link:hover {
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.pipeline-page .ContentPageHeader .btn-link:hover {
+  text-decoration: underline;
+}
+.pipeline-page .Alert .message {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.pipeline-page .ModalContainer {
+  z-index: 99999;
+}
+.pipeline-page .RadioButtonGroup + .indent-form {
+  margin-left: 24px;
+}
+.pipeline-page .Dialog-button-bar .btn-link,
+.pipeline-page .Dialog-button-bar .btn-link:hover {
+  color: #4A90E2;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.pipeline-page .Dialog-button-bar .btn-link:hover {
+  text-decoration: underline;
+}
+.pipeline-page .save-pipeline-dialog textarea,
+.pipeline-page .save-pipeline-dialog .TextArea {
+  height: 66px !important;
+  margin-bottom: 7px;
+}
+.pipeline-page .save-pipeline-dialog .Dialog-button-bar > .btn-link {
+  margin-left: 0;
+}
+.actions {
+  overflow: visible !important;
+}
+.actions > div > div {
+  display: inline-block;
+}

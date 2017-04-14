@@ -1,13 +1,15 @@
-# React (15.5.0) example using ES2015 [![Build Status](https://travis-ci.org/code0wl/react-example-modern-javascript.svg?branch=master)](https://travis-ci.org/code0wl/react-example-modern-javascript)
+# Pipeline Editor Component
 
-On the react site there is a demo on how to learn to think with react. This is the same tutorial executed using ES2015 and webpack as a build process. There are some gotcha's transforming your code to ES2015 whilst using React. In this demo there is a solution for these common challenges.
+__For make this editor communite with right jenkins url, have to change following code.__
 
-Follow the original and great tutorial here
-[Es5 thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) and check the syntax differences using this project.
-[Changelog found here](https://facebook.github.io/react/blog/2016/11/16/react-v15.4.0.html)
-
+`node_modules/@jenkins-cd/blueocean-core-js/dist/js/capability/CapabilityApi.js 49行`
+```js
+    // TODO: (Workaround) 恢复原有代码
+    var classesUrl = ""
+    if (path.startsWith("http://")){
+        classesUrl = path + '/blue/rest/classes/'
+    }else{
+        classesUrl = _utils2.default.cleanSlashes(path + '/blue/rest/classes/');
+    }
+    // 
 ```
-npm start
-```
-
-Check the app at http://localhost:8080
