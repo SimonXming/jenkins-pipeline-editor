@@ -3,6 +3,19 @@ import React from 'react';
 import {render} from 'react-dom';
 import PipelineEditor from './src/PipelineEditor';
 
+var pipeline = `
+pipeline {
+  agent any
+  stages {
+    stage('') {
+      steps {
+        sh 'env'
+      }
+    }
+  }
+}
+`
+
 // init shell
 initShell();
 
@@ -11,7 +24,7 @@ function initShell() {
     shell.className = 'app-shell';
     document.body.appendChild(shell);
     render(<div>
-            <PipelineEditor/>
+            <PipelineEditor pipeline={pipeline}/>
           </div>, shell);
 }
 

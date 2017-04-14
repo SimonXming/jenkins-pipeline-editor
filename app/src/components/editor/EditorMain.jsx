@@ -2,11 +2,11 @@
 
 import React, { Component, PropTypes } from 'react';
 import { EditorPipelineGraph } from './EditorPipelineGraph';
+import { PipelineCreateButton } from './PipelineCreateButton';
 import { EditorStepList } from './EditorStepList';
 import { EditorStepDetails } from './EditorStepDetails';
 import { AgentConfiguration } from './AgentConfiguration';
 import { EnvironmentConfiguration } from './EnvironmentConfiguration';
-import { EmptyStateView } from '@jenkins-cd/design-language';
 import { AddStepSelectionSheet } from './AddStepSelectionSheet';
 import pipelineStore from '../../services/PipelineStore';
 import type { StageInfo, StepInfo } from '../../services/PipelineStore';
@@ -14,7 +14,6 @@ import { convertInternalModelToJson, convertJsonToPipeline, convertPipelineToJso
 import pipelineMetadataService from '../../services/PipelineMetadataService';
 import { Sheets } from '../Sheets';
 import { MoreMenu } from '../MoreMenu';
-import { Icon } from "@jenkins-cd/react-material-icons";
 import pipelineValidator from '../../services/PipelineValidator';
 import { ValidationMessageList } from './ValidationMessageList';
 import focusOnElement from './focusOnElement';
@@ -81,13 +80,17 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
         pipelineStore.removeListener(this.pipelineUpdated);
     }
 
+    doCreate() {
+        console.log(pipelineStore.pipeline)
+    }
+
     doUpdate() {
         // Do update everytime user edit PipelineEditor
-        const pipelineJson = convertInternalModelToJson(pipelineStore.pipeline);
-        console.log(pipelineJson)
-        convertJsonToPipeline(JSON.stringify(pipelineJson), (pipelineScript, err) => {
-            console.log(pipelineScript)
-        })
+        // const pipelineJson = convertInternalModelToJson(pipelineStore.pipeline);
+        // console.log(pipelineJson)
+        // convertJsonToPipeline(JSON.stringify(pipelineJson), (pipelineScript, err) => {
+        //     console.log(pipelineScript)
+        // })
         //
 
         for (const step of this.state.selectedSteps) {
@@ -203,6 +206,7 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
             title={<h4>
                     Pipeline Settings
                 </h4>}>
+            <button onClick={() => this.doCreate()}>Create Pipeline</button>
             <AgentConfiguration key={'agent'+pipelineStore.pipeline.id} node={pipelineStore.pipeline} onChange={agent => (selectedStage && agent.type == 'none' ? delete pipelineStore.pipeline.agent : pipelineStore.pipeline.agent = agent) && this.pipelineUpdated()} />
             <EnvironmentConfiguration key={'env'+pipelineStore.pipeline.id} node={pipelineStore.pipeline} onChange={e => this.pipelineUpdated()} />
         </ConfigPanel>);

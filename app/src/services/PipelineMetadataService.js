@@ -1,7 +1,5 @@
 import { Fetch, JenkinBlueUrl } from "./Core"
 
-console.log(Fetch)
-
 class PipelineMetadataService {
     cache: object = {};
 

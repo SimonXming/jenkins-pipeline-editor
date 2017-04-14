@@ -1,9 +1,6 @@
 // @flow
 
 import React, { Component, PropTypes } from 'react';
-import { Dialog } from '@jenkins-cd/design-language';
-import { ContentPageHeader } from '@jenkins-cd/blueocean-core-js';
-import Extensions from '@jenkins-cd/js-extensions';
 import pipelineStore from './services/PipelineStore';
 import { convertInternalModelToJson, convertJsonToPipeline, convertPipelineToJson, convertJsonToInternalModel } from './services/PipelineSyntaxConverter';
 import type { PipelineInfo } from './services/PipelineStore';
@@ -29,8 +26,10 @@ export class PipelineEditor extends Component<DefaultProps, Props, State> {
     };
 
     state: State = {};
-    
+
     constructor() {
+        // constructor 可以通过 project.pipeline 字段初始化 this.props
+        // 如果 project.pipeline 字段为空，则使用默认模版
         super();
     }
 
@@ -39,8 +38,6 @@ export class PipelineEditor extends Component<DefaultProps, Props, State> {
     }
     
     componentWillReceiveProps(newProps) {
-        console.log("Pipeline editor componentWillReceiveProps()")
-        console.log(newProps)
         this.handleProps(this.props, newProps);
     }
     
@@ -94,7 +91,6 @@ export class PipelineEditor extends Component<DefaultProps, Props, State> {
                         {this.state.pipelineErrors.expand && this.state.pipelineErrors.map(err => <li>{err.location && err.location.join('/')}: {err.error}</li>)}
                     </ul>
                 }
-                {/*<Extensions.Renderer extensionPoint="pipeline.editor.css"/>*/}
                 <EditorMain />
             </div>
         );
