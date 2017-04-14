@@ -139,6 +139,38 @@ const FetchFunctions = {
 
         return dedupe(url, request);
     },
+    /**
+     * Raw fetch.
+     *
+     * This method is semi-private, under normal conditions it should not be
+     * used as it does not include the JWT bearer token
+     *
+     * @param {string} url - The URL to fetch from.
+     * @param {Object} [options]
+     * @param {function} [options.onSuccess] - Optional callback success function.
+     * @param {function} [options.onError] - Optional error callback.
+     * @param {Object} [options.fetchOptions] - Optional isomorphic-fetch options.
+     * @returns fetch response
+     */
+    rawFetch(url, {onSuccess, onError, fetchOptions, disableDedupe} = {}) {
+        const request = () => {
+            let future
+            future = isoFetch(url, FetchFunctions.sameOriginFetchOption(fetchOptions))
+                .then(FetchFunctions.checkRefreshHeader)
+                .then(FetchFunctions.checkStatus);
+
+            if (onSuccess) {
+                return future.then(onSuccess).catch(FetchFunctions.onError(onError));
+            }
+            return future;
+        };
+
+        if (disableDedupe) {
+            return request();
+        }
+
+        return dedupe(url, request);
+    },
 };
 
 export const Fetch = {
@@ -168,6 +200,27 @@ export const Fetch = {
 
         return future;
     },
+    /**
+     * Fetch data.
+     * <p>
+     * Utility function that can be mocked for testing.
+     *
+     * @param {string} url - The URL to fetch from.
+     * @param {Object} [options]
+     * @param {function} [options.onSuccess] - Optional callback success function.
+     * @param {function} [options.onError] - Optional error callback.
+     * @param {Object} [options.fetchOptions] - Optional isomorphic-fetch options.
+     * @returns fetch body.
+     */
+    fetch(url, {onSuccess, onError, fetchOptions} = {}) {
+        let fixedUrl = url;
+
+        if (!url.startsWith(JenkinUrl)) {
+            fixedUrl = `${JenkinUrl}${url}`;
+        }
+        return FetchFunctions.rawFetch(fixedUrl, { onSuccess, onError, fetchOptions});
+    },
+
 };
 
 function trimRestUrl(url) {

@@ -39,6 +39,8 @@ export class PipelineEditor extends Component<DefaultProps, Props, State> {
     }
     
     componentWillReceiveProps(newProps) {
+        console.log("Pipeline editor componentWillReceiveProps()")
+        console.log(newProps)
         this.handleProps(this.props, newProps);
     }
     
