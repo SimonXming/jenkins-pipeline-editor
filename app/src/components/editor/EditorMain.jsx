@@ -81,17 +81,15 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
     }
 
     doCreate() {
-        console.log(pipelineStore.pipeline)
+        let pipelineJson = convertInternalModelToJson(pipelineStore.pipeline);
+        console.log(pipelineJson);
+        convertJsonToPipeline(JSON.stringify(pipelineJson), (pipelineScript, err) => {
+            console.log(pipelineScript)
+        })
     }
 
     doUpdate() {
         // Do update everytime user edit PipelineEditor
-        // const pipelineJson = convertInternalModelToJson(pipelineStore.pipeline);
-        // console.log(pipelineJson)
-        // convertJsonToPipeline(JSON.stringify(pipelineJson), (pipelineScript, err) => {
-        //     console.log(pipelineScript)
-        // })
-        //
 
         for (const step of this.state.selectedSteps) {
             if (!pipelineStore.findStageByStep(step)) {
@@ -257,6 +255,7 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
         }
 
         const stepAddPanel = this.state.showSelectStep && (<AddStepSelectionSheet
+                key="key:add-step-1"
                 onClose={() => this.setState({showSelectStep: false})}
                 onStepSelected={step => this.addStep(step)}
                 title={<h4>Choose step type</h4>} />);

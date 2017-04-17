@@ -5,14 +5,16 @@ import PipelineEditor from './src/PipelineEditor';
 
 var pipeline = `
 pipeline {
-  agent any
-  stages {
-    stage('') {
-      steps {
-        sh 'env'
-      }
+    agent {
+        docker { image 'node:7-alpine' }
     }
-  }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
+    }
 }
 `
 

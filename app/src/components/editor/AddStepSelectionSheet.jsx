@@ -107,7 +107,7 @@ export class AddStepSelectionSheet extends Component<DefaultProps, Props, State>
                 </div>
                 <div className="editor-step-selector">
                 {stepMetadata && stepMetadata.filter(isStepValidForSelectionUI).filter(this.state.searchFilter).sort(stepSorter).map(step =>
-                    <div tabIndex="0" onKeyPress={e => this.selectItemByKeyPress(e, step)}
+                    <div key={"key_" + step.displayName} tabIndex="0" onKeyPress={e => this.selectItemByKeyPress(e, step)}
                         onClick={() => this.addStep(step)}>
                         {step.displayName}
                     </div>

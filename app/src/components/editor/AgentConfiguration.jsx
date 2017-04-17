@@ -140,7 +140,7 @@ export class AgentConfiguration extends Component<DefaultProps, Props, State> {
             {selectedAgent && selectedAgentMetadata && <div className="agent-parameters">
                 {selectedAgentMetadata.parameters.filter(agentConfigParamFilter(selectedAgent)).map(param => {
                     const val = this.getRealOrEmptyArg(param.name).value.value;
-                    return (<div className="agent-param">
+                    return (<div className="agent-param" key={selectedAgent.type + '/' + param.name}>
                         <label key={selectedAgent.type + '/' + param.name}>
                             <div>{param.capitalizedName}{param.isRequired ? '*' : ''}</div>
                             <div>

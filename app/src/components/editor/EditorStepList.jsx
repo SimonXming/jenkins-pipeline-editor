@@ -106,7 +106,7 @@ export class EditorStepList extends Component<DefaultProps, Props, State> {
                             <span className="editor-step-label">{step.label}</span>
                             {!errors && <span className="editor-step-summary">
                                 {thisMeta && thisMeta.parameters.filter(p => p.isRequired).map(p =>
-                                    <span>{step.data[p.name]} </span>
+                                    <span key={'r_' + step.id}>{step.data[p.name]} </span>
                                 )}
                                 </span>
                             }
