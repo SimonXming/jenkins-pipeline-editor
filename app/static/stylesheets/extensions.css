@@ -425,6 +425,7 @@
   display: block;
   padding: 5px 18px;
   color: #444;
+  min-width: 70px;
 }
 .pipeline-editor .more-menu .menu-dropdown > a:hover,
 .pipeline-editor .more-menu .menu-dropdown > a:focus,

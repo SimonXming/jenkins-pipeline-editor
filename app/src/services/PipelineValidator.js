@@ -13,7 +13,7 @@ function _addErrorsForStagesWithoutSteps(node) {
     const parent = pipelineStore.findParentStage(node);
     if (!node.children || !node.children.length) {
         if (parent && (!node.steps || !node.steps.length)) {
-            const message = 'At least one step is required';
+            const message = '至少需要定义一个步骤';
             if (node.validationErrors) {
                 node.validationErrors[0] = message;
             } else {

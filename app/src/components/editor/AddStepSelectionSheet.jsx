@@ -103,7 +103,7 @@ export class AddStepSelectionSheet extends Component<DefaultProps, Props, State>
                 <div className="editor-step-search">
                     <Icon icon="search" style={{ fill: '#ddd' }} size={22} />
                     <input ref="searchInput" type="text" className="editor-step-search-input" onChange={e => this.filterSteps(e.target.value)}
-                        placeholder="Find steps by name" />
+                        placeholder="按名称筛选步骤" />
                 </div>
                 <div className="editor-step-selector">
                 {stepMetadata && stepMetadata.filter(isStepValidForSelectionUI).filter(this.state.searchFilter).sort(stepSorter).map(step =>

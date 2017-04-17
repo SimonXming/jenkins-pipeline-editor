@@ -62,7 +62,7 @@ export class EditorStepList extends Component<DefaultProps, Props, State> {
                                 <ChildStepIcon/>
                                 <div className="editor-step-title">
                                     <span className="editor-step-summary">
-                                        There are no child steps defined
+                                        没有定义子步骤。
                                     </span>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@ export class EditorStepList extends Component<DefaultProps, Props, State> {
                                 <ChildStepIcon/>
                                 <div className="editor-step-title">
                                     <span className="editor-step-summary">
-                                        There are no steps, at least one is required.
+                                        还没有定义步骤, 至少需要定义一个步骤.
                                     </span>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@ export class EditorStepList extends Component<DefaultProps, Props, State> {
             <div className="editor-button-bar">
                 <button className="btn-primary add" onClick={(e) => this.addStepClicked(e)}>
                     <Icon icon="add" size={20} />
-                    Add step
+                    新增步骤
                 </button>
             </div>
         </div>);

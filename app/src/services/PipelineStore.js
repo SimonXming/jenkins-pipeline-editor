@@ -263,7 +263,7 @@ class PipelineStore {
                 parent.children.push(newStep);
             }
             else {
-                throw new Error('unable to find step: ' + parentStep.id);
+                throw new Error('未能找到步骤: ' + parentStep.id);
             }
         }
         else {

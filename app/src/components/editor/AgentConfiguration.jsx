@@ -131,7 +131,7 @@ export class AgentConfiguration extends Component<DefaultProps, Props, State> {
         }
 
         return (<div className="agent-select">
-            <h5>Agent</h5>
+            <h5>运行环境(Agent)</h5>
             <ValidationMessageList node={selectedAgent} />
             <Dropdown labelField="symbol" options={agents}
                 defaultOption={selectedAgentMetadata}

@@ -202,9 +202,9 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
         const globalConfigPanel = pipelineStore.pipeline && (<ConfigPanel className="editor-config-panel global"
             key={'globalConfig'+pipelineStore.pipeline.id}
             title={<h4>
-                    Pipeline Settings
+                    Pipeline 设置
                 </h4>}>
-            <button onClick={() => this.doCreate()}>Create Pipeline</button>
+            <button onClick={() => this.doCreate()}>创建 Pipeline (未实现)</button>
             <AgentConfiguration key={'agent'+pipelineStore.pipeline.id} node={pipelineStore.pipeline} onChange={agent => (selectedStage && agent.type == 'none' ? delete pipelineStore.pipeline.agent : pipelineStore.pipeline.agent = agent) && this.pipelineUpdated()} />
             <EnvironmentConfiguration key={'env'+pipelineStore.pipeline.id} node={pipelineStore.pipeline} onChange={e => this.pipelineUpdated()} />
         </ConfigPanel>);
@@ -215,10 +215,10 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
             onClose={e => pipelineValidator.validate() || this.graphSelectedStageChanged(null)}
             title={
                 <div>
-                    <input className="stage-name-edit" placeholder="Name your stage" defaultValue={title} 
+                    <input className="stage-name-edit" placeholder="给你的 stage 命名" defaultValue={title} 
                         onChange={e => (selectedStage.name = e.target.value) && this.pipelineUpdated()} />
                     <MoreMenu>
-                        <a onClick={e => this.deleteStageClicked(e)}>Delete</a>
+                        <a onClick={e => this.deleteStageClicked(e)}>删除</a>
                     </MoreMenu>
                 </div>
             }>
@@ -246,7 +246,7 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
                     title={<h4>
                         {selectedStage && selectedStage.name} / {step.label}
                         <MoreMenu>
-                            <a onClick={e => this.deleteStep(step)}>Delete</a>
+                            <a onClick={e => this.deleteStep(step)}>删除</a>
                         </MoreMenu>
                     </h4>} />);
 
@@ -258,7 +258,7 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
                 key="key:add-step-1"
                 onClose={() => this.setState({showSelectStep: false})}
                 onStepSelected={step => this.addStep(step)}
-                title={<h4>Choose step type</h4>} />);
+                title={<h4>选择步骤种类</h4>} />);
 
         if (stepAddPanel) sheets.push(stepAddPanel);
 

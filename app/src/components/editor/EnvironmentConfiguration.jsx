@@ -100,10 +100,10 @@ export class EnvironmentConfiguration extends Component<DefaultProps, Props, Sta
         }
 
         return (<div className="environment-select">
-            <h5>Environment</h5>
+            <h5>环境变量</h5>
             <Split>
-                <span>Name</span>
-                <span>Value</span>
+                <span>名称</span>
+                <span>值</span>
                 <button onClick={e => this.addEnvironmentEntry()} title="Add"  className="environment-add-delete-icon add">{addIcon()}</button>
             </Split>
             {node.environment && node.environment.map((env, idx) => <div className="environment-entry" key={env.id}>
