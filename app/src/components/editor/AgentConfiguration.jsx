@@ -111,9 +111,24 @@ export class AgentConfiguration extends Component<DefaultProps, Props, State> {
         focusOnElement('.agent-select .required input');
     }
 
+    agentParamsTranslater(capitalizedName: string) {
+        const translater = {
+            Image: "镜像名称",
+            Args: "启动参数",
+            Filename: "文件名称",
+            Label: "标签"
+        }
+        if (!translater[capitalizedName]){
+            return capitalizedName
+        }else{
+            return translater[capitalizedName]
+        }
+    }
+
     render() {
         const { node } = this.props;
         const { agents, selectedAgent, pristine } = this.state;
+
 
         if (!agents) {
             return null;
@@ -142,7 +157,7 @@ export class AgentConfiguration extends Component<DefaultProps, Props, State> {
                     const val = this.getRealOrEmptyArg(param.name).value.value;
                     return (<div className="agent-param" key={selectedAgent.type + '/' + param.name}>
                         <label key={selectedAgent.type + '/' + param.name}>
-                            <div>{param.capitalizedName}{param.isRequired ? '*' : ''}</div>
+                            <div>{this.agentParamsTranslater(param.capitalizedName)}{param.isRequired ? '*' : ''}</div>
                             <div>
                                 <InputText hasError={param.isRequired && !pristine && !val}
                                     isRequired={param.isRequired}

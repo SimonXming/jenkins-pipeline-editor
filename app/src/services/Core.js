@@ -2,7 +2,7 @@ import { capabilityAugmenter, loadingIndicator, Utils } from '@jenkins-cd/blueoc
 import isoFetch from 'isomorphic-fetch';
 import dedupe from '../utils/dedupe-calls'
 
-export const JenkinUrl = "http://172.24.6.123:8888"
+export const JenkinUrl = "http://127.0.0.1:8888"
 export const JenkinBlueUrl = JenkinUrl + "/blue"
 
 let refreshToken = null;

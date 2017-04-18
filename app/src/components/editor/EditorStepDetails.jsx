@@ -105,7 +105,7 @@ export class EditorStepDetails extends Component {
                     <StepEditor key={step.id} onChange={step => this.commitValue(step)} step={step} />
                 </section>
                 {step.isContainer && <section>
-                    <h5>Child steps</h5>
+                    <h5>子步骤</h5>
                     <EditorStepList steps={step.children}
                         parent={step}
                         onAddStepClick={() => this.props.openSelectStepDialog(step)}

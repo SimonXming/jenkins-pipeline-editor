@@ -1,5 +1,6 @@
 import { Fetch, JenkinUrl } from "./Core"
 
+const enableCrumb = false;
 const cache = {};
 
 export default function fetch(path, body, handler, disableLoadingIndicator) {
@@ -24,39 +25,44 @@ export default function fetch(path, body, handler, disableLoadingIndicator) {
             }
         });
     };
-    if (cache.crumb) {
-        useCrumb(cache.crumb);
-    } else {
-        Fetch.fetch(`${JenkinUrl}/blue/rest/pipeline-metadata/crumbInfo`, {
-            fetchOptions: { method: 'GET', disableLoadingIndicator: disableLoadingIndicator }
-        }).then(response => {
-            if (!response.ok) {
-                if (window.isDevelopmentMode) console.error('An error occurred while fetching:', path);
-                throw response;
-            }
-    
-            if (cache.crumb) {
-                useCrumb(cache.crumb);
-            } else {
-                try {
-                    let crumb = response.text();
-                    if (crumb.then) {
-                        crumb.then(c => {
-                            cache.crumb = c;
-                            useCrumb(c);
-                        })
-                        .catch(err => {
-                            fetch(path, body, handler, disableLoadingIndicator);
-                        });
-                    } else {
-                        cache.crumb = crumb;
-                        useCrumb(crumb);
-                    }
-                } catch(e) {
-                    fetch(path, body, handler, disableLoadingIndicator);
+    if (!enableCrumb){
+        useCrumb('');
+    }else{
+        if (cache.crumb) {
+            useCrumb(cache.crumb);
+        } else {
+            Fetch.fetch(`${JenkinUrl}/blue/rest/pipeline-metadata/crumbInfo`, {
+                fetchOptions: { method: 'GET', disableLoadingIndicator: disableLoadingIndicator }
+            }).then(response => {
+                if (!response.ok) {
+                    if (window.isDevelopmentMode) console.error('An error occurred while fetching:', path);
+                    throw response;
                 }
-            }
-        });
+        
+                if (cache.crumb) {
+                    useCrumb(cache.crumb);
+                } else {
+                    try {
+                        let crumb = response.text();
+                        if (crumb.then) {
+                            crumb.then(c => {
+                                cache.crumb = c;
+                                useCrumb(c);
+                            })
+                            .catch(err => {
+                                fetch(path, body, handler, disableLoadingIndicator);
+                            });
+                        } else {
+                            cache.crumb = crumb;
+                            useCrumb(crumb);
+                        }
+                    } catch(e) {
+                        fetch(path, body, handler, disableLoadingIndicator);
+                    }
+                }
+            });
+        }
     }
+
 }
 

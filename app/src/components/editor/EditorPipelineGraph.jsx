@@ -400,6 +400,18 @@ needsLayout = true;
         return <div className={classNames.join(" ")} style={style} key={key}>{details.text}</div>;
     }
 
+    smallLabelTranslater(lableName: string) {
+        console.log(lableName)
+        const translater = {
+            Start: "开始"
+        }
+        if (!translater[lableName]){
+            return lableName
+        }else{
+            return translater[lableName]
+        }
+    }
+
     renderSmallLabel(details:LabelInfo) {
 
         const {
@@ -438,7 +450,9 @@ needsLayout = true;
             classNames.push("errors");
         }
 
-        return <div className={classNames.join(" ")} style={style} key={key}>{details.text}</div>;
+        return <div className={classNames.join(" ")} style={style} key={key}>
+            {this.smallLabelTranslater(details.text)}
+        </div>;
     }
 
     renderConnection(connection:ConnectionInfo) {
