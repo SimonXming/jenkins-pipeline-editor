@@ -33,7 +33,13 @@ pipeline {
 
 let pipeline_2 = `
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'node:7-alpine'
+      args '--restart always --rm'
+    }
+  }
+  
   stages {
     stage('Pull code') {
         steps {

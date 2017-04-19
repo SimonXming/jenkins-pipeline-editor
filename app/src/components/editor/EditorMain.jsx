@@ -85,6 +85,7 @@ export class EditorMain extends Component<DefaultProps, Props, State> {
         console.log(pipelineJson);
         convertJsonToPipeline(JSON.stringify(pipelineJson), (pipelineScript, err) => {
             console.log(pipelineScript)
+            alert(pipelineScript);
         })
     }
 

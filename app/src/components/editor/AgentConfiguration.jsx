@@ -27,7 +27,7 @@ function agentConfigParamFilter(agent) {
     return (param) => {
         switch(agent.type) {
             case 'docker':
-                return ['image', 'args'].indexOf(param.name) >= 0;
+                return ['image', 'args', 'registryCredentialsId'].indexOf(param.name) >= 0;
             case 'dockerfile':
                 return ['filename'].indexOf(param.name) >= 0;
             case 'label':
@@ -116,7 +116,9 @@ export class AgentConfiguration extends Component<DefaultProps, Props, State> {
             Image: "镜像名称",
             Args: "启动参数",
             Filename: "文件名称",
-            Label: "标签"
+            Label: "标签",
+            RegistryUrl: "镜像仓库地址",
+            RegistryCredentialsId: "镜像仓库证书ID"
         }
         if (!translater[capitalizedName]){
             return capitalizedName
